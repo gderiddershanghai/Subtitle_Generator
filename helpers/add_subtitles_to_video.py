@@ -1,21 +1,33 @@
-from moviepy.editor import VideoFileClip, CompositeVideoClip, TextClip
-from moviepy.video.tools.subtitles import SubtitlesClip
+# from moviepy.editor import VideoFileClip, CompositeVideoClip, TextClip
+# from moviepy.video.tools.subtitles import SubtitlesClip
+import subprocess
 
 def add_subtitles(video_path, subtitles_path, output_path):
-    # Load the video clip
-    video = VideoFileClip(video_path)
+    command = [
+        'ffmpeg',
+        '-i', video_path,
+        '-vf', f"subtitles={subtitles_path}:force_style='Fontsize=32,Alignment=2,MarginV=10'",
+        '-c:v', 'libx264',
+        '-c:a', 'copy',
+        '-crf', '22',
+        '-preset', 'veryfast',
+        output_path
+    ]
+    subprocess.run(command)
 
-    # Create a subtitle clip
-    subtitles = SubtitlesClip(subtitles_path, lambda txt: TextClip(txt, font='Arial', fontsize=24, color='white'))
+# def add_subtitles(video_path, subtitles_path, output_path):
 
-    # Set the subtitles to appear at the bottom of the video
-    subtitles = subtitles.set_position(('center','bottom')).set_duration(video.duration)
+#     video = VideoFileClip(video_path)
+#     generator = lambda txt: TextClip(txt, font='Arial', fontsize=16, color='white')
+#     print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>',generator)
+#     subtitles = SubtitlesClip(subtitles_path, generator)
 
-    # Overlay the subtitles on the video
-    video_with_subtitles = CompositeVideoClip([video, subtitles])
+#     subtitles = subtitles.set_position(('center','bottom')).set_duration(video.duration)
 
-    # Write the result to a file
-    video_with_subtitles.write_videofile(output_path, codec='libx264', audio_codec='aac')
+#     video_with_subtitles = CompositeVideoClip([video, subtitles])
 
-# Usage
-add_subtitles('data/with_music.mp4', 'transcript_whisper.srt', 'new_video.mp4')
+#     video_with_subtitles.write_videofile(output_path, codec='libx264', audio_codec='aac')
+
+
+if __name__ == "__main__":
+    add_subtitles('data/original.mp4', 'transcript_whisper.srt', 'new_video.mp4')

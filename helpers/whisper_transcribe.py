@@ -16,10 +16,11 @@ def transcribe(fp):
     transcript = openai.Audio.transcribe("whisper-1", audio_file, language="en", response_format="srt")
     print(transcript)
     audio_file.close()
-    with open('transcript_whisper.srt', 'w') as file:
+    with open('transcript_whisper.srt', 'w', encoding='utf-8') as file:
         file.write(transcript)
         print("Transcript saved as 'transcript_whisper.srt'.")
+    return 'transcript_whisper.srt'
 
 if __name__ == "__main__":
-    fp = "/home/ginger/code/gderiddershanghai/my_subtitle_generator/data/with_music.mp4"
+    fp = "data/original.mp4"
     transcribe(fp)
