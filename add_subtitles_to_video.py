@@ -7,7 +7,7 @@ def add_subtitles(video_path, subtitles_path, output_path):
         'ffmpeg',
         '-y',
         '-i', video_path,
-        '-vf', f"subtitles={subtitles_path}:force_style='Fontsize=28,Alignment=2,MarginV=10'",
+        '-vf', f"subtitles={subtitles_path}:force_style='Fontsize=22,Alignment=2,MarginV=10'",
         '-c:v', 'libx264',
         '-c:a', 'copy',
         '-crf', '22',
