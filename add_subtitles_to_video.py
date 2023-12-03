@@ -5,6 +5,7 @@ import subprocess
 def add_subtitles(video_path, subtitles_path, output_path):
     command = [
         'ffmpeg',
+        '-y',
         '-i', video_path,
         '-vf', f"subtitles={subtitles_path}:force_style='Fontsize=28,Alignment=2,MarginV=10'",
         '-c:v', 'libx264',
