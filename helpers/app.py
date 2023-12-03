@@ -31,11 +31,11 @@ def main():
     if st.session_state.get('save_clicked', False):
         if st.button("添加字幕"):
 
-            add_subtitles(st.session_state['video_path'], st.session_state['srt_file_path'], f"video_with_subtitles{now}.mp4")
+            add_subtitles(st.session_state['video_path'], st.session_state['srt_file_path'], f"video_with_subtitles.mp4")
             st.session_state['subtitles_added'] = True
 
     if st.session_state.get('subtitles_added', False):
-        with open(f"video_with_subtitles{now}.mp4", "rb") as file:
+        with open(f"video_with_subtitles.mp4", "rb") as file:
             st.download_button(
                 label="下载带字幕的视频",
                 data=file,
