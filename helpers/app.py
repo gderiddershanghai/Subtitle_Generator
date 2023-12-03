@@ -1,8 +1,8 @@
 import streamlit as st
 import os
-from helpers.add_subtitles_to_video import add_subtitles
-from helpers.whisper_transcribe import transcribe
-from helpers.save_video import save_uploaded_file
+from add_subtitles_to_video import add_subtitles
+from whisper_transcribe import transcribe
+from save_video import save_uploaded_file
 import datetime
 
 
